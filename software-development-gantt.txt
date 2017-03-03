@@ -14,7 +14,7 @@
   )
 
 # End date column formula
-= IF(OR(B3=""; C3=0); ""; D3+C3)
+= IF(OR(B3=""; C3=0; D3=""); ""; D3+C3)
 
 # Months row
 = IF(
@@ -32,21 +32,34 @@
     WEEKDAY(COLUMN()+$D$2-6)=7
   )
 
-# Gantt area conditional rule
+# Gantt area task conditional rule
 = AND(
-    NOT(INDEX($D$3:$E$100; ROW()-2; 1)="");
-    NOT(INDEX($D$3:$E$100; ROW()-2; 2)="");
-    INDEX($D$3:$E$100; ROW()-2; 1)<=(COLUMN()+$D$2-6);
-    INDEX($D$3:$E$100; ROW()-2; 2)>(COLUMN()+$D$2-6)
+    NOT(INDEX($A$3:$E$100; ROW()-2; 1)=INT(INDEX($A$3:$E$100; ROW()-2; 1)));
+    NOT(INDEX($A$3:$E$100; ROW()-2; 4)="");
+    NOT(INDEX($A$3:$E$100; ROW()-2; 5)="");
+    INDEX($A$3:$E$100; ROW()-2; 5)>(COLUMN()+$D$2-6);
+    INDEX($A$3:$E$100; ROW()-2; 4)<=(COLUMN()+$D$2-6)
   )
+
+# Gantt area milestone conditional rule
+= AND(
+    INDEX($A$3:$E$100; ROW()-2; 1)=INT(INDEX($A$3:$E$100; ROW()-2; 1));
+    NOT(INDEX($A$3:$E$100; ROW()-2; 4)="");
+    NOT(INDEX($A$3:$E$100; ROW()-2; 5)="");
+    INDEX($A$3:$E$100; ROW()-2; 5)>(COLUMN()+$D$2-6);
+    INDEX($A$3:$E$100; ROW()-2; 4)<=(COLUMN()+$D$2-6)
+  )
+
+# Milestone bold conditional rule
+= AND(
+    NOT(INDEX($A$3:$A$50; ROW()-2; 1)="");
+    INT(INDEX($A$3:$A$50; ROW()-2; 1))=INDEX($A$3:$A$50; ROW()-2; 1)
+)
+
 
 #
 = INDEX($D$3:$E$100;1;1)>=(COLUMN()-6+$D$2))
 
-
-
 =INDEX($D$3:$E$100,ROW()-2,1)>=DATE(COLUMN()-6+$D$2)
-
-=AND(INT(INDEX($A$3:$A$50;ROW()-2;1))=INDEX($A$3:$A$50;ROW()-2;1);NOT(INDEX($A$3:$A$50;ROW()-2;1)=""))
 
 
