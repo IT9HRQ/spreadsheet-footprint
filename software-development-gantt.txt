@@ -1,4 +1,21 @@
 
+# Start date cell formula
+= IF(
+    MIN(D3:D)>DATEVALUE("1/1/2010");
+    MIN(D3:D);
+    DATEVALUE("1/1/2010")
+  )
+
+# End date cell formula
+= IF(
+    MAX(E3:E)>$D$2;
+    MAX(E3:E);
+    $D$2
+  )
+
+# End date column formula
+= IF(OR(B3=""; C3=0); ""; D3+C3)
+
 # Months row
 = IF(
     DAY(COLUMN()+$D$2-6) = 1; 
@@ -17,9 +34,10 @@
 
 # Gantt area conditional rule
 = AND(
-    NOT(INDEX($D$3:$E$100;ROW()-2;1)="");
-    INDEX($D$3:$E$100;ROW()-2;1)<=(COLUMN()-6+$D$2),
-    INDEX($D$3:$E$100;ROW()-2;2)>=(COLUMN()-6+$D$2)
+    NOT(INDEX($D$3:$E$100; ROW()-2; 1)="");
+    NOT(INDEX($D$3:$E$100; ROW()-2; 2)="");
+    INDEX($D$3:$E$100; ROW()-2; 1)<=(COLUMN()+$D$2-6);
+    INDEX($D$3:$E$100; ROW()-2; 2)>(COLUMN()+$D$2-6)
   )
 
 #
