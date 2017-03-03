@@ -1,0 +1,32 @@
+
+
+# Months row
+= IF(
+    DAY(COLUMN()+$D$2-6) = 1; 
+    LEFT(TEXT(COLUMN()+$D$2-6; "MMMM"); 2); 
+    ""
+  )
+
+
+# Days row
+= DAY(COLUMN()+$D$2-6)
+
+
+# Gantt area (Conditional)
+= AND(
+    NOT(INDEX($D$3:$E$100;ROW()-2;1)="");
+    INDEX($D$3:$E$100;ROW()-2;1)<=(COLUMN()-6+$D$2),
+    INDEX($D$3:$E$100;ROW()-2;2)>=(COLUMN()-6+$D$2)
+  )
+
+
+##
+= INDEX($D$3:$E$100;1;1)>=(COLUMN()-6+$D$2))
+
+
+
+=INDEX($D$3:$E$100,ROW()-2,1)>=DATE(COLUMN()-6+$D$2)
+
+=AND(INT(INDEX($A$3:$A$50;ROW()-2;1))=INDEX($A$3:$A$50;ROW()-2;1);NOT(INDEX($A$3:$A$50;ROW()-2;1)=""))
+
+
